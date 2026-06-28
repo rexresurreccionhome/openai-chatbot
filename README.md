@@ -1,6 +1,6 @@
 # OpenAI Chatbot
 
-An AI chatbot that uses OpenAI's LLM combined with semantic embeddings to deliver intelligent, context-aware responses. The system converts both user questions and knowledge base content into embeddings, then retrieves the most relevant information by comparing their semantic similarity before generating responses.
+An AI chatbot that uses OpenAI's LLM combined with semantic embeddings to deliver intelligent, context-aware responses. The system mimics a vector database by storing embeddings of knowledge base content, then compares them with user question embeddings using cosine similarity to retrieve the most relevant information before generating responses.
 
 ## Prerequisites
 
