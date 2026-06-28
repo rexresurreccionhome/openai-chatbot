@@ -1,0 +1,9 @@
+import os
+
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+LLM_MODEL = os.getenv("LLM_MODEL", "gpt-4o-mini")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+RELEVANCE_THRESHOLD = float(os.getenv("RELEVANCE_THRESHOLD", 0.2))
+RELEVANCE_RETURN_LIMIT = int(os.getenv("RELEVANCE_RETURN_LIMIT", 5))
+CONVERSATION_HISTORY_LIMIT = int(os.getenv("CONVERSATION_HISTORY_LIMIT", 10))
