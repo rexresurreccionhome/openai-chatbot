@@ -37,3 +37,79 @@ export LLM_MODEL="gpt-4o"
 export RELEVANCE_THRESHOLD="0.5"
 python main.py
 ```
+
+## Adding a New Persona and Knowledge Base
+
+The chatbot automatically discovers and loads personas from the `personas/` directory. Here's how to create a new one:
+
+### Directory Structure
+
+```
+personas/
+  your-persona-name/
+    prompt.md
+    kb/
+      entry1.json
+      entry2.json
+      entry3.json
+```
+
+### Step 1: Create the Persona Folder
+
+Create a new folder under `personas/` with your persona name (e.g., `personas/coffee-shop-assistant/`).
+
+### Step 2: Create Knowledge Base Entries
+
+Inside the persona folder, create a `kb/` subdirectory and add JSON files for each knowledge base entry.
+
+**JSON Entry Format:**
+```json
+{
+  "summary": "A concise, relevant summary of the content",
+  "description": "A detailed description with more context and information"
+}
+```
+
+**Important Notes:**
+- The `summary` field is used to compute embeddings, so make it concise and relevant
+- The `description` field provides detailed information retrieved alongside the summary
+- The `embedding` field is automatically computed and added on the first script run
+- Keep summaries focused on key topics for better semantic matching
+
+**Example:**
+```json
+{
+  "summary": "Espresso-based coffee drinks and preparation methods",
+  "description": "Our cafe specializes in espresso drinks including lattes, cappuccinos, and americanos. All drinks are made with freshly ground beans and steamed milk."
+}
+```
+
+### Step 3: Create a Prompt Template
+
+Create a `prompt.md` file in your persona folder that defines how the LLM should respond. The template supports three parameters:
+
+- `{conversation_history}` - Previous conversation turns for context
+- `{relevant_kb_info}` - Knowledge base entries matched to the user's question
+- `{user_question}` - The current user question
+
+**Example prompt template:**
+```markdown
+You are a helpful coffee shop assistant. Use the provided context to answer customer questions accurately and friendly.
+
+## Context
+{relevant_kb_info}
+
+## Conversation History
+{conversation_history}
+
+## User Question
+{user_question}
+
+Please provide a helpful and concise response.
+```
+
+Once you've set up the folder structure and files, the script will automatically:
+1. Discover your new persona
+2. Load and process KB entries
+3. Compute embeddings for summaries on first run
+4. Use the prompt template when generating responses
